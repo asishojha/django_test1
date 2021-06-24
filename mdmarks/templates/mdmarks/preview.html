@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block css %}
+<style>
+	.list-group-item{
+		padding-left: .5rem;
+		padding-right: .5rem;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<section class="student" {% if not messages %}style="padding-top: 76px;"{% else %}style="padding-top:126px"{% endif %}>
+	<div class="container-fluid pt-4">
+		<div class="row">
+			<div class="col-lg-4">
+				<h3 class="mb-2 text-warning">Preview your Submission</h3>
+				<ul class="student_list list-group">
+					{% for field in form %}
+					{% if field.name != 'school' and field.name != 'fl' and field.name != 'sl' and field.name != 'opt_marks' %}
+					<li class="list-group-item py-0">
+						<b>{{ field.label }}</b>: {{ field.data }}
+					</li>
+					{% endif %}
+					{% endfor %}
+					{% if student.sl %}
+					<li class="list-group-item py-0">
+						<b>{{ form.opt_marks.label }}</b>: {{ form.opt_marks.data }}	
+					</li>
+					{% endif %}
+					<li class="list-group-item py-0">
+						{% blocktrans %}<b>Security hash</b>: {{ hash_value }}{% endblocktrans %}
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-8">
+				<form method="POST" action="">
+					{% csrf_token %}
+					<input type="hidden" name="school" value="{{ student.school.id }}" />
+					<input type="hidden" name="fl" value="{{ student.fl }}" />
+					<input type="hidden" name="sl" {% if student.sl %}value="{{ student.sl }}"{% endif %} />
+					{% if not student.s1 %}<input type="hidden" name="opt_marks" />{% endif %}
+					<input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+					<input type="hidden" name="{{ stage_field }}" value="2" />
+					<div class="row">
+						{% for field in form %}
+						{% if field.name != 'school' and field.name != 'fl' and field.name != 'sl' and field.name != 'opt_marks' %}
+						<div class="{% if forloop.counter0 > 6 %}col-md-2{% else %}col-md-6{% endif %}">
+							<label for="{{ field.auto_id }}">{{ field.label }}</label>
+							{{ field }}
+						</div>
+						{% endif %}
+						{% endfor %}
+						{% if student.sl %}
+						<div class="col-md-2">
+							<label for="{{ form.opt_marks.auto_id }}">{{ form.opt_marks.label }}</label>
+							{{ form.opt_marks }}
+						</div>
+						{% endif %}
+						<div class="col-12">
+							<button class="btn btn-outline-warning btn-block"{% if student.complete %} disabled{% endif %} type="submit">{% trans "Submit" %}</button>
+							<a href="{{ student.get_absolute_url }}" class="d-block btn btn-success mt-2{% if student.complete %} disabled{% endif %}">Edit</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	$('form').submit(function(e){
+		$(':disabled').each(function(e){
+			$(this).removeAttr('disabled');
+		});
+	});
+</script>
+{% endblock %}

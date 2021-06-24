@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    {% block meta %}{% endblock %}
+    <style>
+    *{
+        font-family: 'Roboto', sans-serif;
+    }
+    .errorlist {
+        padding-left: 15px;
+        color: red;
+        text-shadow: 0 0 black;
+    }
+    a.nav-link{
+        font-weight: 400;
+    }
+    .base-section{
+        position: absolute;   
+        top: 0;
+        min-height: 100vh;
+        height: 100%;
+        width: 100%;
+        background: rgb(31,19,228);
+        background: linear-gradient(214deg, rgba(31,19,228,1) 0%, rgba(50,50,215,1) 21%, rgba(50,153,215,1) 97%);
+        z-index: -1;
+    }  
+    .btn-success{
+        background-color: #16006e;
+        border-color: #16006e;
+    } 
+    </style>
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top">
+        <a href="{% url 'mdmarks:index' %}" class="navbar-brand">
+            <img src="{% static 'img/logo.png' %}" height="50" alt="CoolBrand">
+            <span class="d-inline ml-2 my-auto" style="font-size:36px;color:#fff;letter-spacing: 1.2px;vertical-align:middle;">W.B.B.M.E.</span>
+        </a>
+        <button class=" navbar-toggler bg-light" data-toggle="collapse" data-target="#nav"><span class="navbar-toggler-icon"></span></button>
+        <div class=" collapse navbar-collapse justify-content-between" id="nav">
+            <ul class="navbar-nav ml-auto">
+                <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:index' %}">Home</a></li>
+                <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:students' %}">Students List</a></li>
+                <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="#">Instructions</a></li>
+                {% if not request.user.is_authenticated %}<li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:login' %}">Login</a></li>{% else %}<li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:logout' %}">Logout</a></li>{% endif %}            
+            </ul>
+        </div>
+    </nav>
+    <section class="base-section">
+        {% if messages %}{% for message in messages %}
+        <div class="alert mb-0 alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 76px;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}{% endif %}
+    </section>
+    
+    {% block content %}{% endblock %}
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    {% block js %}{% endblock %}
+</body>
+
+</html>

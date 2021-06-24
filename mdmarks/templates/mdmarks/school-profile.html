@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}<title>Update Profile</title>{% endblock %}
+{% block css %}
+<style>
+	.form-profile {
+	    padding: 15px 35px 45px;
+	    margin: 0 auto;
+	    background-color: #fff;
+	    border: 1px solid rgba(0, 0, 0, 0.1);
+	}
+</style>
+{% endblock %}
+{% block content %}
+<section {% if not messages %}style="padding-top: 76px;"{% else %}style="padding-top:126px"{% endif %}>
+	<div class="container-fluid">
+		<div class="row align-items-center mt-5">
+			<div class="col-md-6 offset-md-3">
+				<form class="form-profile" method="post" action="." >
+					<h2 class="form-heading mb-4">Update Profile</h2>
+					{% csrf_token %}
+					{{ form.as_p }}
+					<button class="btn btn-primary btn-block" type="submit">Save</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>	
+{% endblock %}

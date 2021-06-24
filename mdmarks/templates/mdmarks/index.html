@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}<title>W.B.B.M.E.</title>{% endblock %}
+
+{% block content %}
+<!-- banner -->
+<section {% if not messages %}style="padding-top: 76px;"{% else %}style="padding-top:126px"{% endif %}>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center mt-5 pt-5">
+            <div class=" col-md-12 text-center">
+                <h2 class=" display-4 text-capitalize">
+                    <span class="d-block my-2 text-warning font-weight-bold">West Bengal Board Of Madrasah Education </span>
+                    <span class="d-block my-2 text-white">Marks Collection Portal</span>
+                </h2>
+                <a href="{% url 'mdmarks:students' %}" class="btn btn-success mt-5 border-0">Student List</a>
+                {% if not request.user.is_authenticated %}<a href="{% url 'mdmarks:login' %}" class="btn btn-warning mt-5">Login</a>{% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
