@@ -11,7 +11,6 @@ SUBJECT_CODE_DICT = {
 	'021': 'ISLAMIC HISTORY',
 	'022': 'WORK/PHY. EDU.',
 	'087': 'MCA',
-	'004': 'ARABIC',
 	'057': 'BENGALI',
 	'058': 'URDU',
 	'085': 'BIOLOGY',
@@ -63,7 +62,7 @@ class SchoolProfileForm(forms.ModelForm):
 class StudentHMForm(forms.ModelForm):
 	class Meta:
 		model = StudentHM
-		exclude = ['complete','ctg', 'addl']
+		fields = ['rollno', 'regno', 'name', 'fname', 'dob', 'subj', 'fl', 'sl', 'fl_marks', 'english_marks', 'maths_marks', 'psc_marks', 'lsc_marks', 'hist_marks', 'geog_marks', 'arabic_marks', 'islam_parichay', 'opt_marks']
 
 	def __init__(self, *args, **kwargs):
 		super(StudentHMForm, self).__init__(*args, **kwargs)
@@ -84,7 +83,8 @@ class StudentHMForm(forms.ModelForm):
 class StudentALForm(forms.ModelForm):
 	class Meta:
 		model = StudentAL
-		exclude = ['complete','ctg', 'addl']
+		fields = ['rollno', 'regno', 'name', 'fname', 'dob', 'subj', 'fl', 'sl', 'fl_marks', 'english_marks', 'arabic_marks', 'hadith', 'tafsir', 'fiqh', 'maths_marks', 'psc_marks', 'lsc_marks', 'hist_marks', 'geog_marks', 'opt_marks']
+		# exclude = ['complete','ctg']
 
 	def __init__(self, *args, **kwargs):
 		super(StudentALForm, self).__init__(*args, **kwargs)
@@ -101,3 +101,10 @@ class StudentALForm(forms.ModelForm):
 			if len(self[field].errors) > 0:
 				print(self[field])
 				self.fields[field].widget.attrs.pop('disabled')
+
+class CsvImportForm(forms.Form):
+	csv_file = forms.FileField()
+
+	def __init__(self):
+		super().__init__()
+		self.fields['csv_file'].widget.attrs.update({'class':'vTextField', 'accept':'.csv'})

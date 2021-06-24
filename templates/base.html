@@ -14,9 +14,10 @@
         font-family: 'Roboto', sans-serif;
     }
     .errorlist {
-        padding-left: 15px;
-        color: red;
+        padding-left: 1rem;
+        color: #6e0757;
         text-shadow: 0 0 black;
+        list-style: none;
     }
     a.nav-link{
         font-weight: 400;
@@ -24,7 +25,7 @@
     .base-section{
         position: absolute;   
         top: 0;
-        min-height: 100vh;
+        min-height: 150vh;
         height: 100%;
         width: 100%;
         background: rgb(31,19,228);
@@ -40,7 +41,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
         <a href="{% url 'mdmarks:index' %}" class="navbar-brand">
             <img src="{% static 'img/logo.png' %}" height="50" alt="CoolBrand">
             <span class="d-inline ml-2 my-auto" style="font-size:36px;color:#fff;letter-spacing: 1.2px;vertical-align:middle;">W.B.B.M.E.</span>

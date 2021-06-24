@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from mdmarks.views import import_users
 
 urlpatterns = [
+    path('admin/auth/user/import/users/', import_users, name='import_users'),
     path('admin/', admin.site.urls),
     path('', include('mdmarks.urls', namespace='mdmarks')),
 ]
@@ -25,3 +27,4 @@ urlpatterns = [
 if settings.DEBUG:
     from django.conf.urls.static import static
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

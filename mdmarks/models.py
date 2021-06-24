@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 
-from .validators import validate_marks
+from .validators import validate_100_marks, validate_50_marks
 
 SUBJECT_CODE_DICT = {
 	'001': 'BENGALI',
@@ -12,7 +12,6 @@ SUBJECT_CODE_DICT = {
 	'021': 'ISLAMIC HISTORY',
 	'022': 'WORK/PHY. EDU.',
 	'087': 'MCA',
-	'004': 'ARABIC',
 	'057': 'BENGALI',
 	'058': 'URDU',
 	'085': 'BIOLOGY',
@@ -21,7 +20,7 @@ SUBJECT_CODE_DICT = {
 
 CATEGORY_DICT = {
 	'1': 'REGULAR',
-	'c': 'CONTINUING',
+	'3': 'CONTINUING',
 	'5': 'COMPARTMENTAL'
 }
 
@@ -36,16 +35,12 @@ class Student(models.Model):
 	subj = models.CharField(max_length=40, null=True, verbose_name='Subject Combination')
 	fl = models.CharField(max_length=3)
 	sl = models.CharField(max_length=3, null=True)
-	addl = models.CharField(max_length=3, null=True)
-	fl_marks = models.CharField(max_length=3, null=True, validators=[validate_marks])
-	english_marks = models.CharField(max_length=3, null=True, verbose_name='English', validators=[validate_marks])
-	maths_marks = models.CharField(max_length=3, null=True, verbose_name='Mathematics', validators=[validate_marks])
-	psc_marks = models.CharField(max_length=2, null=True, verbose_name='Physical Science', validators=[validate_marks])
-	lsc_marks = models.CharField(max_length=2, null=True, verbose_name='Life Science', validators=[validate_marks])
-	hist_marks = models.CharField(max_length=3, null=True, verbose_name='History', validators=[validate_marks])
-	geog_marks = models.CharField(max_length=2, null=True, verbose_name='Geography', validators=[validate_marks])
-	arabic_marks = models.CharField(max_length=3, null=True, verbose_name='Arabic', validators=[validate_marks])
-	opt_marks = models.CharField(max_length=3, null=True, validators=[validate_marks])
+	fl_marks = models.CharField(max_length=3, null=True, validators=[validate_100_marks])
+	english_marks = models.CharField(max_length=3, null=True, verbose_name='English (SL)', validators=[validate_100_marks])
+	maths_marks = models.CharField(max_length=3, null=True, verbose_name='Mathematics', validators=[validate_100_marks])
+	arabic_marks = models.CharField(max_length=3, null=True, verbose_name='Arabic', validators=[validate_100_marks])
+	hist_marks = models.CharField(max_length=3, null=True, verbose_name='History', validators=[validate_100_marks])
+	opt_marks = models.CharField(max_length=3, null=True, validators=[validate_100_marks])
 	complete=models.BooleanField(default=False)
 
 	def get_fl_name(self):
@@ -58,7 +53,10 @@ class Student(models.Model):
 		abstract = True
 
 class StudentHM(Student):
-	islam_parichay = models.CharField(max_length=3, null=True, validators=[validate_marks])	
+	islam_parichay = models.CharField(max_length=3, null=True, validators=[validate_100_marks])
+	psc_marks = models.CharField(max_length=3, null=True, verbose_name='Physical Science', validators=[validate_100_marks])
+	lsc_marks = models.CharField(max_length=3, null=True, verbose_name='Life Science', validators=[validate_100_marks])
+	geog_marks = models.CharField(max_length=3, null=True, verbose_name='Geography', validators=[validate_100_marks])
 
 	class Meta:
 		verbose_name_plural = 'Students HM'
@@ -72,9 +70,12 @@ class StudentHM(Student):
 		})
 
 class StudentAL(Student):
-	hadith = models.CharField(max_length=3, null=True, validators=[validate_marks])
-	tafsir = models.CharField(max_length=3, null=True, validators=[validate_marks])
-	fiqh = models.CharField(max_length=2, null=True, validators=[validate_marks])
+	psc_marks = models.CharField(max_length=2, null=True, verbose_name='Physical Science', validators=[validate_50_marks])
+	lsc_marks = models.CharField(max_length=2, null=True, verbose_name='Life Science', validators=[validate_50_marks])
+	geog_marks = models.CharField(max_length=2, null=True, verbose_name='Geography', validators=[validate_50_marks])
+	hadith = models.CharField(max_length=3, null=True, validators=[validate_100_marks])
+	tafsir = models.CharField(max_length=3, null=True, validators=[validate_100_marks])
+	fiqh = models.CharField(max_length=2, null=True, validators=[validate_50_marks])
 
 	class Meta:
 		verbose_name_plural = 'Students AL'

@@ -50,8 +50,8 @@
                         </thead>
                         <tbody>
                             {% for s in students %}
-                            <tr class="{% if forloop.counter == 1 %}table-success{% elif forloop.counter == 2 %}table-warning{% elif forloop.counter == 3 %}table-info{% elif forloop.counter == 4 %}table-secondary{% endif %}">
-                                <td scope="row"><a class="text-dark" href="{{ s.get_absolute_url }}">{{s.rollno}}</a></td>
+                            <tr class="{% cycle 'table-success' 'table-warning' 'table-info' 'table-secondary' %}">
+                                <td scope="row"><a style="color: #324ad7" href="{{ s.get_absolute_url }}">{{s.rollno}}</a></td>
                                 <td>{{s.name}}</td>
                                 <td>{{s.fname}}</td>
                                 <td>{{s.regno}}</td>

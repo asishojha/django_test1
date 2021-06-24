@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import SchoolProfile, StudentAL, StudentHM
-from .forms import UsersLoginForm, SchoolProfileForm, PasswordResetForm
+from .forms import UsersLoginForm, SchoolProfileForm, PasswordResetForm, CsvImportForm
+import csv, io
 
 def index(request):
 	return render(request, 'mdmarks/index.html')
@@ -117,7 +118,7 @@ def students(request):
 	elif list(ctg)[0] == '3':
 		school_type = 'ALIM'
 
-	paginator = Paginator(students,4)
+	paginator = Paginator(students,15)
 	page = request.GET.get('page',1)
 
 	try:
@@ -136,7 +137,7 @@ def students(request):
 		'students': students,
 		'first_student': first_student,
 		'regular' : Student.objects.filter(school=request.user , ctg__endswith='1').count(),
-		'continuity' : Student.objects.filter(school=request.user , ctg__endswith='c').count(),
+		'continuity' : Student.objects.filter(school=request.user , ctg__endswith='3').count(),
 		'compartmental' : Student.objects.filter(school=request.user , ctg__endswith='5').count(),
 		'tot' : Student.objects.filter(school=request.user).count(),
 		'left' : Student.objects.filter(school=request.user, complete=False).count(),
@@ -144,3 +145,17 @@ def students(request):
 		'school_type': school_type
 	}
 	return render(request, 'mdmarks/students.html', context)
+
+def import_users(request):
+	form = CsvImportForm()
+	if request.method == 'POST':
+		csv_file = request.FILES['csv_file'].read().decode('UTF-8')
+		io_string = io.StringIO(csv_file)
+		csv_reader = csv.reader(io_string, delimiter=',')
+		for l in csv_reader:
+			User.objects.create_user(username=l[0], first_name=l[1], password='password')
+		messages.success(request, "Your csv file has been imported")
+		return redirect(reverse("admin:auth_user_changelist"))
+	context = {"form": form}
+	
+	return render(request, "admin/csv_form.html", context)
