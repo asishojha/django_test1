@@ -5,6 +5,8 @@ from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
 
 from .models import SchoolProfile, StudentAL, StudentHM
 from .forms import UsersLoginForm, SchoolProfileForm, PasswordResetForm, CsvImportForm
@@ -146,6 +148,7 @@ def students(request):
 	}
 	return render(request, 'mdmarks/students.html', context)
 
+@method_decorator(staff_member_required)
 def import_users(request):
 	form = CsvImportForm()
 	if request.method == 'POST':
@@ -159,3 +162,6 @@ def import_users(request):
 	context = {"form": form}
 	
 	return render(request, "admin/csv_form.html", context)
+
+def instructions(request):
+	return render(request, 'mdmarks/instructions.html')

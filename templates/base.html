@@ -51,7 +51,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:index' %}">Home</a></li>
                 <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:students' %}">Students List</a></li>
-                <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="#">Instructions</a></li>
+                <li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:instructions' %}">Instructions</a></li>
                 {% if not request.user.is_authenticated %}<li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:login' %}">Login</a></li>{% else %}<li class='nav-item'><a class='nav-link text-light text-uppercase px-3' href="{% url 'mdmarks:logout' %}">Logout</a></li>{% endif %}            
             </ul>
         </div>
