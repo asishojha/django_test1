@@ -180,12 +180,16 @@ def admin_info(request):
 		if hm_students.count() > 0:
 			try:
 				inc_student = hm_students.get(complete=True)
+			except MultipleObjectsReturned:
+				pass
 			except StudentHM.DoesNotExist:
 				incomplete_schools.append(s)
 
 		if al_students.count() > 0:
 			try:
 				inc_student = al_students.get(complete=True)
+			except MultipleObjectsReturned:
+				pass
 			except StudentAL.DoesNotExist:
 				incomplete_schools.append(s)
 
