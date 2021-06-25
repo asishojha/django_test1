@@ -7,12 +7,37 @@
 		height: 0;
 		min-height: 0;
 	}
+	span.border-line{
+		display: inline-block;
+		width: 600px;
+		height: auto;
+		padding:  5px 0;
+		background-color: red;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 999;
+		color:  #fff;
+		text-align: center;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+	}
+	span.border-line.top{
+		top: 10px;
+
+	}
+	span.border-line.bottom{
+		bottom: 15px;
+	}
 </style>
 {% endblock %}
 {% block content %}
-<section style="margin-top: 76px;">
+<section class="pb-5" style="margin-top: 76px;position: relative;">
+	<span class="border-line top">
+		***Please Fill in the class IX Annual Examination marks only.***
+	</span>
 	<div class="container pt-5 bg-white" style="position: relative;">
-		<h2 class="mb-4" style="position: relative;">Marks Entry Website Instructions</h2>
+		<h2 class="mb-4 mt-2" style="position: relative;">Marks Entry Website Instructions</h2>
 		<div class="row my-3">
 			<div class="col-md-6">
 				<h5>Step 1</h5>
@@ -38,7 +63,7 @@
 		<div class="row my-3">
 			<div class="col-md-6">
 				<h5>Step 4</h5>
-				<p>For the 1st time enter your school index as your username and ‘password’ all in small letters as your password. After this you get a profile form only for the first time where in you fill your name , email and phone number. Then you are sent to a page to change your password given below and this is only for the 1st time login. After this process when ever you login, just enter the school index as username and the changed password or the new password as your password. </p>
+				<p>For the 1st time enter your Madrasah index as your username and ‘password’ all in small letters as your password. After this you get a profile form only for the first time where in you fill your name , email and phone number. Then you are sent to a page to change your password given below and this is only for the 1st time login. After this process when ever you login, just enter the Madrasah index as username and the changed password or the new password as your password. </p>
 				<p><strong>User profile page : (only for the 1st time login )</strong></p>
 			</div>
 			<div class="col-md-6">
@@ -58,7 +83,7 @@
 		<div class="row my-3">
 			<div class="col-md-6">
 				<h5>Step 5</h5>
-				<p>Once the password is changed then you are sent in to your school dashboard where in you get your school index and name. Below that is a table which tells the figure of Regular, Continuing, Compartmental, Total Candidates, Total students whose marks Entry are left and total students whose marks entry are done. Now on top of the students table you see a button saying “Start Entering Marks”. Whenever you click this button it takes you to the first unentered marks candidate in your candidate list. The screen is given below for the students list:</p>
+				<p>Once the password is changed then you are sent in to your Madrasah dashboard where in you get your Madrasah index and name. Below that is a table which tells the figure of Regular, Continuing, Compartmental, Total Candidates, Total students whose marks Entry are left and total students whose marks entry are done. Now on top of the students table you see a button saying “Start Entering Marks”. Whenever you click this button it takes you to the first unentered marks candidate in your candidate list. The screen is given below for the students list:</p>
 			</div>
 			<div class="col-md-6">
 				<img src="{% static 'img/instructions/5.png' %}" class="img-fluid" alt="" />
@@ -116,5 +141,8 @@
 		</div>
 		<hr>
 	</div>
+	<span class="border-line bottom">
+		***Please Fill in the class IX Annual Examination marks only.***
+	</span>
 </section>
 {% endblock %}
