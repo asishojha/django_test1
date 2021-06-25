@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WBBME INFO COUNT</title>
+	<style type="text/css">
+		h3{
+			margin-bottom: 0;
+		}
+		p, ul{
+			margin: 0
+		}
+	</style>
+</head>
+<body>
+	<h3>No of HM Students (completed):</h3>
+	<p>{{ complete_hm_students }}</p>
+
+	<h3>No of AL Students (completed):</h3>
+	<p>{{ complete_al_students }}</p>
+
+	<h3>No. of Profiles Generated:</h3>
+	<p>{{ no_of_profiles }}</p>
+
+	<h3>No. of Schools with no data entry:</h3>
+	<p>{{ incomplete_schools|length }}</p>
+
+	<h3>List of Incomplete Schools</h3>
+	<ul>
+		{% for school in incomplete_schools %}
+		<li>{{ school }} - {{ school.first_name }}</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

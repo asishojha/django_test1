@@ -164,3 +164,36 @@ def import_users(request):
 
 def instructions(request):
 	return render(request, 'mdmarks/instructions.html')
+
+@staff_member_required
+def admin_info(request):
+	complete_hm_students = StudentHM.objects.filter(complete=True).count()
+	complete_al_students = StudentAL.objects.filter(complete=True).count()
+	no_of_profiles = SchoolProfile.objects.all().count()
+	incomplete_schools = []
+	schools = User.objects.exclude(is_superuser=True)
+
+	for s in schools:
+		hm_students = s.studenthm_set.all()
+		al_students = s.studental_set.all()
+
+		if hm_students.count() > 0:
+			try:
+				inc_student = hm_students.get(complete=True)
+			except StudentHM.DoesNotExist:
+				incomplete_schools.append(s)
+
+		if al_students.count() > 0:
+			try:
+				inc_student = al_students.get(complete=True)
+			except StudentAL.DoesNotExist:
+				incomplete_schools.append(s)
+
+
+	context = {
+		'complete_hm_students': complete_hm_students,
+		'complete_al_students': complete_al_students,
+		'no_of_profiles': no_of_profiles,
+		'incomplete_schools': incomplete_schools
+	}
+	return render(request, 'admin-info.html', context)

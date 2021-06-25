@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, login, logout, school_profile, reset_password, students, instructions
+from .views import index, login, logout, school_profile, reset_password, students, instructions, admin_info
 from .previews import StudentHMFormPreview, StudentALFormPreview
 from .forms import StudentHMForm, StudentALForm
 
@@ -13,6 +13,7 @@ urlpatterns = [
 	path('reset-password/', reset_password, name='reset_password'),
 	path('students/', students, name='students'),
 	path('instructions/', instructions, name='instructions'),
+	path('admin-info/', admin_info, name='admin_info'),
 	path('student/hm/<slug:rollno>/', StudentHMFormPreview(StudentHMForm), name='student_hm'),
 	path('student/al/<slug:rollno>/', StudentALFormPreview(StudentALForm), name='student_al'),
 ]
