@@ -60,7 +60,7 @@ class StudentHMFormPreview(FormPreview):
 			return redirect(self.next_student.get_absolute_url())
 		else:
 			messages.success(request, 'Congratulations! Data for all the students have been updated.')
-			return redirect('marks:students')
+			return redirect('mdmarks:students')
 
 	def __call__(self, request, *args, **kwargs):
 		return super(StudentHMFormPreview, self).__call__(request, *args, **kwargs)
@@ -117,7 +117,7 @@ class StudentALFormPreview(FormPreview):
 			return redirect(self.next_student.get_absolute_url())
 		else:
 			messages.success(request, 'Congratulations! Data for all the students have been updated.')
-			return redirect('marks:students')
+			return redirect('mdmarks:students')
 
 	def __call__(self, request, *args, **kwargs):
 		return super(StudentALFormPreview, self).__call__(request, *args, **kwargs)
