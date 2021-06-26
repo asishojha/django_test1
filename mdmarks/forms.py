@@ -31,6 +31,7 @@ class UsersLoginForm(forms.Form):
 		super(UsersLoginForm, self).__init__(*args, **kwargs)
 		self.fields['username'].widget.attrs.update({
 			'class': 'form-control',
+			'placeholder': 'School Index (without space or \'-\')',
 			'name':'username'})
 		self.fields['password'].widget.attrs.update({
 			'class': 'form-control',
